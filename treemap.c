@@ -95,6 +95,7 @@ Pair* searchTreeMap(TreeMap* tree, void* key) {
         }
     }
 
+    // La clave no se encontró
     tree->current = NULL;
     return NULL;
 }
