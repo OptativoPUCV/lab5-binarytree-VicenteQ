@@ -77,27 +77,20 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 
 Pair* searchTreeMap(TreeMap* tree, void* key) {
-    if (tree == NULL || tree->root == NULL) {
-        return NULL;
-    }
-
-    TreeNode *current = tree->root;
+    TreeNode* current = tree->root;
 
     while (current != NULL) {
-        int cmp = tree->lower_than(key, current->pair->key);
-        if (cmp == 0) {
-            tree->current = current;
-            return current->pair;
-        } else if (cmp < 0) {
+        if (tree->lower_than(key, current->pair->key))
             current = current->left;
-        } else {
+        else if (tree->lower_than(current->pair->key, key))
             current = current->right;
+        else {
+            tree->current = current; 
+            return current->pair;
         }
     }
 
-    // La clave no se encontró
-    tree->current = NULL;
-    return NULL;
+    return NULL; 
 }
 
 
